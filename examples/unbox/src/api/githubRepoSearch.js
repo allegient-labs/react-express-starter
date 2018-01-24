@@ -9,17 +9,12 @@ function githubRepoSearch(searchTerm) {
       );
     })
     .then(json => {
-      return mostRelevantRepos(json.items);
+      return json.items;
     })
     .catch(err => {
       console.error(err.message);
       return [];
     });
-}
-
-function mostRelevantRepos(repositories) {
-  const scoreThreshold = 50;
-  return repositories.filter(repo => repo.score >= scoreThreshold);
 }
 
 export default githubRepoSearch;
