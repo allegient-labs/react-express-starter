@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import RepoSearchResult from './RepoSearchResult';
-import githubRepoSearch from './api/githubRepoSearch';
+import GitHubRepoAPI from './GitHubRepoAPI';
 import debounce from 'lodash.debounce';
 
 class Home extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      repositories: []
-    };
+    this.state = {};
   }
 
   componentWillMount() {
@@ -21,10 +19,11 @@ class Home extends Component {
   }
 
   searchGitHubRepos(event) {
-    const searchTerm = event.target.value;
-    return githubRepoSearch(searchTerm).then(foundRepos => {
-      this.setState({ repositories: foundRepos });
-    });
+    this.setState({ query: event.target.value });
+  }
+
+  renderRepoSearchResults({ items }) {
+    return items.map(repo => <RepoSearchResult repo={repo} key={repo.id} />);
   }
 
   render() {
@@ -44,9 +43,10 @@ class Home extends Component {
               </div>
             </div>
           </form>
-          {this.state.repositories.map(repo => (
-            <RepoSearchResult repo={repo} key={repo.id} />
-          ))}
+
+          <GitHubRepoAPI query={this.state.query}>
+            {this.renderRepoSearchResults}
+          </GitHubRepoAPI>
         </div>
       </section>
     );
