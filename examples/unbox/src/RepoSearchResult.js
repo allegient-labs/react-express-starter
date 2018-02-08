@@ -19,7 +19,7 @@ class RepoSearchResult extends Component {
       <div className="card search-card">
         <Link
           to={{
-            pathname: `/package/${id}`,
+            pathname: `/repos/${full_name}`,
             state: this.props.repo
           }}
         >

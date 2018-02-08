@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import RepoSearchResult from './RepoSearchResult';
-import GitHubRepoAPI from './GitHubRepoAPI';
+import GitHubRepoSearch from './GitHubRepoSearch';
 import debounce from 'lodash.debounce';
 
 class Home extends Component {
@@ -22,7 +22,11 @@ class Home extends Component {
     this.setState({ query: event.target.value });
   }
 
-  renderRepoSearchResults({ items }) {
+  renderRepoSearchResults({ items, searching }) {
+    if (searching) {
+      return <span className="has-text-info is-size-6">Searching...</span>;
+    }
+
     return items.map(repo => <RepoSearchResult repo={repo} key={repo.id} />);
   }
 
@@ -44,9 +48,9 @@ class Home extends Component {
             </div>
           </form>
 
-          <GitHubRepoAPI query={this.state.query}>
+          <GitHubRepoSearch query={this.state.query}>
             {this.renderRepoSearchResults}
-          </GitHubRepoAPI>
+          </GitHubRepoSearch>
         </div>
       </section>
     );
