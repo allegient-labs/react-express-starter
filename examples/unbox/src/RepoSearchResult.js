@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import RepoMetaTagList from './RepoMetaTagList';
 import './RepoSearchResult.scss';
 
 class RepoSearchResult extends Component {
   render() {
     const {
       full_name,
-      id,
-      license,
       open_issues_count,
       forks_count,
       stargazers_count,
-      description,
-      name
+      description
     } = this.props.repo;
 
     return (
@@ -30,27 +28,11 @@ class RepoSearchResult extends Component {
             <div className="content">{description}</div>
           </div>
           <footer className="card-footer search-card__footer">
-            <div className="field is-grouped is-grouped-multiline">
-              <div className="control">
-                <div className="tags has-addons">
-                  <span className="tag is-dark">stars</span>
-                  <span className="tag is-warning">{stargazers_count}</span>
-                </div>
-              </div>
-              <div className="control">
-                <div className="tags has-addons">
-                  <span className="tag is-dark">forks</span>
-                  <span className="tag is-info">{forks_count}</span>
-                </div>
-              </div>
-
-              <div className="control">
-                <div className="tags has-addons">
-                  <span className="tag is-dark">issues</span>
-                  <span className="tag is-link">{open_issues_count}</span>
-                </div>
-              </div>
-            </div>
+            <RepoMetaTagList
+              forksCount={forks_count}
+              stargazersCount={stargazers_count}
+              openIssuesCount={open_issues_count}
+            />
           </footer>
         </Link>
       </div>

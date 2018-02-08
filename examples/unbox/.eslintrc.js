@@ -218,6 +218,8 @@ module.exports = {
     'quote-props': 'off',
     quotes: ['error', 'single'],
     radix: 'error',
+    'react/jsx-uses-react': 'error',
+    'react/jsx-uses-vars': 'error',
     'require-await': 'error',
     'require-jsdoc': 'error',
     'rest-spread-spacing': 'error',
